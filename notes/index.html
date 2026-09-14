@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07182f">
+  <meta name="description" content="随行笔记 · 白星空间，收集灵感、阅读与生活片段">
+  <title>随行笔记 · 白星空间</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./notes.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#journal">跳到笔记</a>
+<header class="hero">
+  <div class="sparkles" aria-hidden="true"><span class="spark">✦</span><span class="spark">✧</span><span class="spark">✦</span><span class="spark">·</span><span class="spark">✧</span></div>
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="/" aria-label="白星空间首页"><span class="mark" aria-hidden="true"></span><span class="brand-name">白星</span><span class="brand-sub">PERSONAL SPACE</span></a>
+    <div class="nav-links"><a href="/">首页</a><a href="/album/">相册</a><a href="/notes/" aria-current="page">笔记</a></div>
+  </nav>
+  <div class="hero-inner"><div class="eyebrow">Notes along the way</div><h1>随行笔记</h1><p>把偶然闪过的灵感，留给未来的自己<br>走过的日常，读过的文字，都在这里慢慢沉淀</p></div>
+</header>
+<main id="journal" class="section notebook">
+  <div class="intro"><h2>纸间拾光</h2><p>目前展示示例笔记，正式内容待更新</p></div>
+  <div class="filters" role="group" aria-label="按笔记分类筛选">
+    <button class="filter" type="button" aria-pressed="true" data-category="全部">全部</button>
+    <button class="filter" type="button" aria-pressed="false" data-category="生活片段">生活片段</button>
+    <button class="filter" type="button" aria-pressed="false" data-category="阅读随想">阅读随想</button>
+    <button class="filter" type="button" aria-pressed="false" data-category="灵感手记">灵感手记</button>
+  </div>
+  <p id="result-count" role="status" class="kicker"></p>
+  <div id="entries" class="journal-grid"></div>
+  <p id="empty" class="empty" hidden>这一页还留着空白，等下一段值得记录的时光</p>
+  <noscript><p class="empty">请启用 JavaScript 以查看笔记内容</p></noscript>
+  <p class="endnote">✦ 让零散的思绪，有一个安静的归处</p>
+</main>
+<footer class="footer"><span>© 2026 白星空间</span><a href="/">返回个人主页</a></footer>
+<dialog id="reader" aria-labelledby="reader-title">
+  <div class="reader-head"><span id="reader-category"></span><button class="close" type="button" aria-label="关闭笔记">×</button></div>
+  <article class="reader-copy"><p class="reader-label">示例笔记 · 仅作排版展示</p><h2 id="reader-title"></h2><div id="reader-body"></div></article>
+</dialog>
+</body>
+</html>
