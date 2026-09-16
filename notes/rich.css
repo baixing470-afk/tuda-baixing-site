@@ -10,3 +10,37 @@
 .ql-snow .ql-picker.ql-size [data-value=small]::before{content:'小'!important}.ql-snow .ql-picker.ql-size [data-value=large]::before{content:'大'!important}.ql-snow .ql-picker.ql-size [data-value=huge]::before{content:'特大'!important}
 .rich-history{display:inline-flex;gap:6px}.rich-history .action{padding:4px 10px;font-size:12px;min-height:28px}.ql-toolbar button{min-height:28px}.ql-snow .ql-picker-options{z-index:5}.ql-editor blockquote{color:#517293}
 @media(max-width:600px){.ql-toolbar.ql-snow .ql-formats{margin-right:8px}#note-body .ql-editor{padding:14px}}
+/* Keep editor controls independent from the site's form and button styles */
+#editor .ql-toolbar.ql-snow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 0;padding:12px;background:#f6f9fd;border-color:#dce6f1;font-family:system-ui,sans-serif}
+#editor .ql-toolbar.ql-snow .ql-formats{display:inline-flex;align-items:center;gap:3px;margin:0 10px 0 0;padding-right:10px;border-right:1px solid #dce5ee}
+#editor .ql-toolbar.ql-snow button{float:none;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-height:32px;padding:6px;border:0;border-radius:7px;white-space:nowrap;background:transparent;color:#4d637a;line-height:1;font-family:inherit}
+#editor .ql-toolbar.ql-snow button:hover{background:#e5effa;color:#1564aa}
+#editor .ql-toolbar.ql-snow button.ql-active{background:#dfeeff;color:#1564aa}
+#editor .ql-toolbar .rich-history{display:inline-flex;gap:4px;margin-left:auto}
+#editor .ql-toolbar .rich-history button{width:auto;min-width:44px;padding:6px 8px;font-size:12px;white-space:nowrap}
+#editor .ql-snow .ql-picker{height:32px;font-size:13px;color:#4d637a}
+#editor .ql-snow .ql-picker-label{display:flex;align-items:center;margin:0;padding:0 24px 0 9px;height:32px;border:1px solid transparent;border-radius:7px;font-size:13px;color:inherit}
+#editor .ql-snow .ql-picker-label:hover{background:#e5effa}
+#editor .ql-snow .ql-picker.ql-font{width:104px}
+#editor .ql-snow .ql-picker.ql-size{width:70px}
+#editor .ql-snow .ql-picker.ql-header{width:86px}
+#editor .ql-snow .ql-picker-options{padding:6px;border:1px solid #dce6f1;border-radius:10px;box-shadow:0 8px 24px #16355218;background:white;min-width:100px}
+#editor .ql-snow .ql-picker-item{padding:8px 10px;border-radius:6px;line-height:1.4}
+#editor .ql-snow .ql-picker-item:hover{background:#edf5ff}
+#editor .ql-snow .ql-picker-item::before{font-size:13px!important;font-weight:400!important}
+#editor .ql-snow .ql-picker.ql-header .ql-picker-label::before,#editor .ql-snow .ql-picker.ql-header .ql-picker-item::before{content:'正文'}
+#editor .ql-snow .ql-picker.ql-header [data-value="1"]::before{content:'大标题'}
+#editor .ql-snow .ql-picker.ql-header [data-value="2"]::before{content:'小标题'}
+#editor .ql-snow .ql-color-picker .ql-picker-item{padding:0;width:20px;height:20px;margin:3px;border-radius:5px}
+#editor .ql-snow .ql-color-picker .ql-picker-options{width:116px}
+@media(max-width:600px){#editor .reader-copy{padding:16px}#editor .ql-toolbar.ql-snow{padding:8px;gap:6px 0}#editor .ql-toolbar.ql-snow .ql-formats{margin-right:6px;padding-right:6px}#editor .ql-toolbar .rich-history{margin-left:0}}
+#editor .ql-toolbar.ql-snow{position:relative;gap:10px 0}
+#editor .ql-toolbar.ql-snow .ql-formats:first-child{flex-basis:100%;border-right:0;border-bottom:1px solid #e3eaf2;padding-bottom:10px;margin-right:0;gap:8px}
+#editor .ql-toolbar .rich-history{position:absolute;right:12px;top:12px}
+#editor .ql-toolbar .ql-color-picker{width:32px;flex-shrink:0}
+#editor .ql-toolbar .ql-color-picker .ql-picker-label{width:32px;padding:5px}
+#editor .ql-toolbar .ql-color-picker .ql-picker-label svg{width:22px;height:22px;flex-shrink:0}
+#editor .ql-snow .ql-picker.ql-font{width:104px}
+#editor .ql-toolbar .ql-formats:first-child .ql-picker-label{background:#fff;border:1px solid #e0e7ef}
+#editor .ql-toolbar .ql-formats:first-child .ql-picker-label:hover{border-color:#b8d1e9;background:#fff}
+@media(max-width:600px){#editor .ql-toolbar .rich-history{position:static;margin-left:auto}#editor .ql-toolbar.ql-snow .ql-formats:first-child{gap:4px}#editor .ql-snow .ql-picker.ql-header{width:76px}}

@@ -13,6 +13,10 @@
  const actions=document.createElement('div');actions.className='rich-history';
  for(const [name,label] of [['undo','撤销'],['redo','重做']]){const b=document.createElement('button');b.type='button';b.className='action';b.textContent=label;b.onclick=()=>editor.history[name]();actions.append(b)}
  document.querySelector('.ql-toolbar').append(actions);
+ const toolbar=document.querySelector('.ql-toolbar');
+ const groups=toolbar.querySelectorAll('.ql-formats');
+ groups[0].append(toolbar.querySelector('.ql-header'));
+ toolbar.querySelector('.ql-background .ql-picker-label').setAttribute('aria-label','高亮颜色');
  Object.defineProperty(document.querySelector('#note-body'),'value',{get(){return prefix+JSON.stringify(editor.getContents().ops)},set(body){editor.setContents(decode(body));editor.history.clear()}});
  window.RichNotes={text:body=>decode(body).map(o=>o.insert).join(''),show:body=>viewer.setContents(decode(body))};
 })();
