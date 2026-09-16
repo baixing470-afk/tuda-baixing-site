@@ -29,15 +29,29 @@
 #journal-companion .jc-options span{font-size:10px;color:#89a0af;margin-top:3px}
 #journal-companion .jc-panel-foot{font-size:10px;color:#8b9eac;margin-top:14px;text-align:center;line-height:1.7}
 #journal-companion .jc-hearts{position:absolute;top:10px;left:18px;color:#8ab7d4;font-size:20px;letter-spacing:9px;opacity:0;pointer-events:none}
-#journal-companion[data-motion]:not([data-motion=""]) .jc-hearts{animation:jc-spark .85s ease-out}
-#journal-companion[data-motion=hop] .jc-character img{animation:jc-hop .8s ease}
-#journal-companion[data-motion=sway] .jc-character img{animation:jc-sway .8s ease}
-#journal-companion[data-motion=nod] .jc-character img{animation:jc-nod .8s ease}
-#journal-companion[data-motion=wiggle] .jc-character img{animation:jc-wiggle .8s ease}
-#journal-companion.jc-compact{width:104px;height:42px}#journal-companion .jc-restore{height:36px;font-size:12px}#journal-companion .jc-restore span{color:#66a4cd;font-size:17px;margin-right:5px}
-@keyframes jc-hop{30%{transform:translateY(-14px) rotate(-5deg)}65%{transform:translateY(-5px) rotate(3deg)}}
-@keyframes jc-sway{25%{transform:rotate(-9deg)}65%{transform:rotate(8deg)}}
-@keyframes jc-nod{35%{transform:translateY(5px) rotate(5deg)}70%{transform:translateY(-3px)}}
-@keyframes jc-wiggle{20%,60%{transform:rotate(-7deg)}40%,80%{transform:rotate(7deg)}}
-@keyframes jc-spark{20%{opacity:1}100%{opacity:0;transform:translateY(-24px)}}
+
+#journal-companion .jc-character img{position:absolute;inset:0;transition:opacity .16s ease;transform-origin:50% 85%}
+#journal-companion .jc-character .jc-next{opacity:0}
+#journal-companion .jc-character{animation:jc-breathe 5s ease-in-out infinite}
+#journal-companion .jc-controls{position:absolute;right:0;bottom:8px;gap:5px;height:32px;opacity:.68;transition:opacity .2s}
+#journal-companion:hover .jc-controls,#journal-companion:focus-within .jc-controls{opacity:1}
+#journal-companion .jc-switch,#journal-companion .jc-minimize{display:grid;place-items:center;width:32px;height:32px;padding:0;border-radius:50%;background:#ffffffdf}
+#journal-companion .jc-switch svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5}
+#journal-companion.jc-dragging .jc-character{transform:none;animation:none}
+#journal-companion[data-motion=hop] .jc-character{animation:jc-hop 1s cubic-bezier(.2,.7,.3,1)}
+#journal-companion[data-motion=sway] .jc-character{animation:jc-sway 1.4s ease-in-out}
+#journal-companion[data-motion=nod] .jc-character{animation:jc-nod 1.5s ease-in-out}
+#journal-companion[data-motion=wiggle] .jc-character{animation:jc-wiggle 1.2s ease-in-out}
+#journal-companion[data-motion=affection] .jc-character{animation:jc-affection 1.8s ease-in-out}
+#journal-companion[data-motion=affection] .jc-hearts{animation:jc-spark 1.7s ease-out}
+#journal-companion[data-pose=sleep] .jc-character{animation:jc-breathe 6.5s ease-in-out infinite}
+#journal-companion.jc-compact{width:104px;height:42px}#journal-companion .jc-restore{width:38px;height:38px;padding:0;font-size:22px}
+@keyframes jc-breathe{50%{transform:translateY(-1.5px) scaleY(1.012)}}
+@keyframes jc-hop{20%{transform:scale(1.025,.975)}48%{transform:translateY(-6px) scale(.99,1.01)}75%{transform:translateY(1px) scale(1.01,.99)}}
+@keyframes jc-sway{35%{transform:translateX(-2px) rotate(-2deg)}70%{transform:translateX(1px) rotate(1deg)}}
+@keyframes jc-nod{40%{transform:translateY(2px) scaleY(.98)}75%{transform:translateY(-1px)}}
+@keyframes jc-wiggle{25%{transform:translateY(-3px) rotate(-1.5deg)}55%{transform:translateY(-1px) rotate(1.5deg)}80%{transform:translateY(-2px)}}
+@keyframes jc-affection{40%,65%{transform:rotate(-2deg) translateY(-2px)}}
+@keyframes jc-spark{30%{opacity:.8}100%{opacity:0;transform:translateY(-18px)}}
+@media(pointer:coarse){#journal-companion .jc-controls{opacity:1}}
 @media(prefers-reduced-motion:reduce){#journal-companion *,#journal-companion *:before{animation:none!important;transition:none!important}}

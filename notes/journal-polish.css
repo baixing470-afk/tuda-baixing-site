@@ -1,0 +1,13 @@
+/* Decorations live at the page edges, with no overlay over controls or writing. */
+body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",Arial,sans-serif;color:#29465e;background-color:#f5f9fc;background-image:url('journal-detail.svg'),radial-gradient(ellipse at 3% 60%,#e2eff8 0,transparent 48%),radial-gradient(ellipse at 98% 80%,#e7f2f9 0,transparent 44%);background-repeat:no-repeat;background-position:right bottom,left center,right bottom;background-size:360px 540px,100% 100%,100% 100%}
+.notebook{position:relative}
+.intro h2,.entry h3,.login-box h2{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-weight:600;letter-spacing:.035em;color:#244963}
+.intro h2{font-size:28px}.entry h3{font-size:22px}
+.intro p,.login-box p,.entry p{color:#4f687c}.entry p{font-size:15px;line-height:1.95}
+label,.filter,.entry-meta,#sync-status,#result-count,.footer,.endnote{color:#5b778d}
+#sync-status,#result-count,.entry-meta{font-size:12px;letter-spacing:0}
+input,select,textarea,button{font-family:inherit}input::placeholder{color:#71879a;opacity:1}
+.action,.filter,.read{font-weight:500}.filter[aria-pressed=true]{color:#234f70;background:#dcecf7}
+.entry,.entry:first-child{background:#fffffff5;border-color:#d2e2ed;border-top-color:#8ebbd5;box-shadow:0 8px 25px #294c6810}
+.endnote{letter-spacing:.08em}.footer{border-top-color:#ccdeeb}
+@media(max-width:650px){body{background-size:210px 310px,100% 100%,100% 100%}.intro h2{font-size:25px}.entry h3{font-size:21px}}
