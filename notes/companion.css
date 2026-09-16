@@ -1,1 +1,43 @@
-.companion-pet{position:fixed;right:22px;bottom:18px;z-index:20;display:flex;align-items:flex-end;gap:10px;touch-action:none;user-select:none}.pet-avatar{position:relative;width:74px;height:84px;border:0;background:none;cursor:pointer;filter:drop-shadow(0 8px 8px #315c7820)}.pet-avatar .body{position:absolute;bottom:0;left:6px;width:62px;height:55px;border:2px solid #a7cfe3;border-radius:48%;background:linear-gradient(145deg,#fff,#dff1fa)}.pet-avatar .ear{position:absolute;top:1px;width:23px;height:51px;border:2px solid #a7cfe3;border-radius:70%;background:#fff}.pet-avatar .ear.a{left:11px;transform:rotate(-12deg)}.pet-avatar .ear.b{right:11px;transform:rotate(12deg);background:#d6edf7}.pet-avatar .eye{position:absolute;top:37px;width:7px;height:8px;border-radius:50%;background:#3c6c8b}.pet-avatar .eye.a{left:25px}.pet-avatar .eye.b{right:25px}.pet-avatar .mouth{position:absolute;top:48px;left:32px;color:#6090a9}.pet-avatar.rabbit2 .body{background:#fff3fa;border-color:#d4afc7}.pet-avatar.rabbit2 .ear.b{background:#efc7dc}.pet-avatar.rabbit2:after{content:'✿';position:absolute;right:5px;top:19px;color:#d78bb1}.pet-avatar.turtle .body{height:49px;border-radius:48%;background:#a8d8bd;border-color:#78ad94}.pet-avatar.turtle .ear{display:none}.pet-avatar.turtle:after{content:'⌁';position:absolute;left:28px;top:21px;color:#488b6f;font-size:27px}.pet-avatar.dog .ear{top:26px;height:29px;background:#b7d5e5;border-radius:45%}.pet-avatar.dog .ear.a{left:2px;transform:rotate(-28deg)}.pet-avatar.dog .ear.b{right:2px;transform:rotate(28deg)}.pet-avatar.dog:after{content:'♥';position:absolute;right:3px;top:18px;color:#75aecb}.pet-menu{position:absolute;right:0;bottom:87px;display:flex;gap:5px;padding:7px;border:1px solid #d4e4ee;border-radius:12px;background:#fff;box-shadow:0 9px 26px #31557920;opacity:0;transform:translateY(6px);pointer-events:none;transition:.2s}.menu-open .pet-menu{opacity:1;transform:none;pointer-events:auto}.pet-menu button{border:0;border-radius:7px;padding:7px 9px;background:#f3f8fc;color:#4f7189;font-size:11px;cursor:pointer}.pet-menu button:hover{background:#e0eef6}.pet-bubble{position:absolute;right:78px;bottom:72px;width:max-content;max-width:230px;padding:10px 13px;border:1px solid #d6e6f0;border-radius:13px 13px 3px 13px;background:#fff;color:#62829a;font-size:12px;line-height:1.7;opacity:0;pointer-events:none;transition:.2s}.talk .pet-bubble{opacity:1}.hop .pet-avatar{animation:pet-hop .6s ease}@keyframes pet-hop{50%{transform:translateY(-13px) rotate(-5deg)}}@media(max-width:650px){.companion-pet{right:10px;bottom:10px}.pet-bubble{right:62px;max-width:180px}}
+/* All companion selectors are scoped so the journal and Quill styles stay intact */
+.hero{background-image:linear-gradient(90deg,rgba(10,34,60,.45),rgba(20,55,82,.1)),url('pet-sky.webp');background-size:cover;background-position:center}.hero:after{opacity:.15}.paper-art{opacity:.8}
+#journal-companion{position:fixed;z-index:40;width:152px;height:196px;font-family:"Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;color:#395f7e;user-select:none}
+#journal-companion[hidden],#journal-companion [hidden]{display:none!important}
+#journal-companion button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+#journal-companion button:focus-visible{outline:2px solid #4a90bc;outline-offset:3px}
+#journal-companion .jc-character{position:relative;display:block;width:152px;height:166px;margin:0;padding:0;border:0;border-radius:24px;background:transparent;touch-action:none;cursor:grab}
+#journal-companion .jc-character img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 7px 5px #3d668522)}
+#journal-companion .jc-character:hover img{filter:drop-shadow(0 9px 8px #3d668530)}
+#journal-companion.jc-dragging .jc-character{cursor:grabbing;transform:rotate(-5deg)}
+#journal-companion .jc-controls{display:flex;justify-content:center;align-items:center;gap:4px;height:30px}
+#journal-companion .jc-switch,#journal-companion .jc-minimize,#journal-companion .jc-restore{border:1px solid #cbdfea;background:#fffffff5;box-shadow:0 3px 12px #284b6510;color:#52738b;border-radius:20px;font-size:11px;height:28px;padding:0 10px;white-space:nowrap}
+#journal-companion .jc-minimize{width:26px;padding:0;font-size:17px}
+#journal-companion .jc-switch:hover,#journal-companion .jc-minimize:hover{background:#eaf4fb}
+#journal-companion .jc-bubble{position:absolute;right:8px;bottom:204px;width:220px;max-width:calc(100vw - 24px);box-sizing:border-box;background:#fff;color:#456b85;border:1px solid #cbdfea;border-radius:16px 16px 4px 16px;box-shadow:0 8px 28px #2d59731c;font-size:13px;line-height:1.85;padding:14px 17px;pointer-events:none}
+#journal-companion.jc-near-left .jc-bubble{left:0;right:auto}
+#journal-companion.jc-near-top .jc-bubble{top:200px;bottom:auto}
+#journal-companion .jc-picker{position:fixed;box-sizing:border-box;padding:18px;background:#fff;border:1px solid #d5e4ef;box-shadow:0 14px 50px #1c47652b;border-radius:20px;max-height:calc(100dvh - 24px);overflow-y:auto;z-index:41}
+#journal-companion .jc-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:14px}
+#journal-companion .jc-panel-head strong{font-size:15px;font-weight:600;color:#325670}
+#journal-companion .jc-panel-head p{font-size:10px;line-height:1.7;color:#8499a8;margin:5px 0 0}
+#journal-companion .jc-close{width:26px;height:26px;border:0;border-radius:50%;background:#f0f6fa;color:#6b879c;font-size:19px;padding:0;flex-shrink:0}
+#journal-companion .jc-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#journal-companion .jc-options button{border:1px solid #e1eaf1;border-radius:13px;background:#f8fbfd;padding:8px 8px 10px;display:flex;align-items:center;flex-direction:column;color:#476b85;transition:background .15s,border-color .15s}
+#journal-companion .jc-options button:hover{background:#eff7fc;border-color:#b0d1e5}
+#journal-companion .jc-options button[aria-pressed=true]{background:#eaf5fc;border-color:#83b6d6;box-shadow:inset 0 0 0 1px #b6d7eb}
+#journal-companion .jc-options img{width:86px;height:84px;object-fit:contain;pointer-events:none}
+#journal-companion .jc-options strong{font-size:12px;margin-top:4px;font-weight:600}
+#journal-companion .jc-options span{font-size:10px;color:#89a0af;margin-top:3px}
+#journal-companion .jc-panel-foot{font-size:10px;color:#8b9eac;margin-top:14px;text-align:center;line-height:1.7}
+#journal-companion .jc-hearts{position:absolute;top:10px;left:18px;color:#8ab7d4;font-size:20px;letter-spacing:9px;opacity:0;pointer-events:none}
+#journal-companion[data-motion]:not([data-motion=""]) .jc-hearts{animation:jc-spark .85s ease-out}
+#journal-companion[data-motion=hop] .jc-character img{animation:jc-hop .8s ease}
+#journal-companion[data-motion=sway] .jc-character img{animation:jc-sway .8s ease}
+#journal-companion[data-motion=nod] .jc-character img{animation:jc-nod .8s ease}
+#journal-companion[data-motion=wiggle] .jc-character img{animation:jc-wiggle .8s ease}
+#journal-companion.jc-compact{width:104px;height:42px}#journal-companion .jc-restore{height:36px;font-size:12px}#journal-companion .jc-restore span{color:#66a4cd;font-size:17px;margin-right:5px}
+@keyframes jc-hop{30%{transform:translateY(-14px) rotate(-5deg)}65%{transform:translateY(-5px) rotate(3deg)}}
+@keyframes jc-sway{25%{transform:rotate(-9deg)}65%{transform:rotate(8deg)}}
+@keyframes jc-nod{35%{transform:translateY(5px) rotate(5deg)}70%{transform:translateY(-3px)}}
+@keyframes jc-wiggle{20%,60%{transform:rotate(-7deg)}40%,80%{transform:rotate(7deg)}}
+@keyframes jc-spark{20%{opacity:1}100%{opacity:0;transform:translateY(-24px)}}
+@media(prefers-reduced-motion:reduce){#journal-companion *,#journal-companion *:before{animation:none!important;transition:none!important}}
