@@ -1,0 +1,12 @@
+.ql-toolbar.ql-snow{border:1px solid #cbdff4;border-radius:14px 14px 0 0;background:#f0f6ff;line-height:1.8;font-family:inherit;margin-top:8px}
+#note-body.ql-container{border:1px solid #cbdff4;border-top:0;border-radius:0 0 14px 14px;background:white;font-size:16px;font-family:inherit}
+#note-body .ql-editor{min-height:280px;max-height:48vh;overflow-y:auto;line-height:1.9;padding:20px}
+#reader-body.ql-container{border:0;font-size:17px;font-family:inherit;white-space:normal}
+#reader-body .ql-editor{padding:0;line-height:2;overflow-wrap:anywhere}
+.ql-font-song{font-family:SimSun,'Songti SC','Noto Serif CJK SC',serif}.ql-font-kai{font-family:KaiTi,STKaiti,'Kaiti SC',serif}
+.ql-snow .ql-picker.ql-font .ql-picker-label::before,.ql-snow .ql-picker.ql-font .ql-picker-item::before{content:'默认黑体'}
+.ql-snow .ql-picker.ql-font [data-value=song]::before{content:'宋体'!important}.ql-snow .ql-picker.ql-font [data-value=kai]::before{content:'楷体'!important}
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,.ql-snow .ql-picker.ql-size .ql-picker-item::before{content:'标准'}
+.ql-snow .ql-picker.ql-size [data-value=small]::before{content:'小'!important}.ql-snow .ql-picker.ql-size [data-value=large]::before{content:'大'!important}.ql-snow .ql-picker.ql-size [data-value=huge]::before{content:'特大'!important}
+.rich-history{display:inline-flex;gap:6px}.rich-history .action{padding:4px 10px;font-size:12px;min-height:28px}.ql-toolbar button{min-height:28px}.ql-snow .ql-picker-options{z-index:5}.ql-editor blockquote{color:#517293}
+@media(max-width:600px){.ql-toolbar.ql-snow .ql-formats{margin-right:8px}#note-body .ql-editor{padding:14px}}
