@@ -1,42 +1,19 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#07182f">
-  <meta name="description" content="随行笔记 · 白星空间，收集灵感、阅读与生活片段">
-  <title>随行笔记 · 白星空间</title>
-  <link rel="stylesheet" href="./style.css">
-  <script src="./notes.js" defer></script>
-</head>
-<body>
+<!doctype html><html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07182f">
+<title>随行笔记 · 白星空间</title><meta name="description" content="和朋友一起记录生活、阅读与灵感">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="shared.css">
+<script src="../album/cloud-config.js" defer></script><script src="../album/supabase.js" defer></script>
+<script src="store.js" defer></script><script src="notes.js" defer></script></head><body>
 <a class="skip" href="#journal">跳到笔记</a>
-<header class="hero">
-  <div class="sparkles" aria-hidden="true"><span class="spark">✦</span><span class="spark">✧</span><span class="spark">✦</span><span class="spark">·</span><span class="spark">✧</span></div>
-  <nav class="nav" aria-label="主导航">
-    <a class="brand" href="/" aria-label="白星空间首页"><span class="mark" aria-hidden="true"></span><span class="brand-name">白星</span><span class="brand-sub">PERSONAL SPACE</span></a>
-    <div class="nav-links"><a href="/">首页</a><a href="/album/">相册</a><a href="/notes/" aria-current="page">笔记</a></div>
-  </nav>
-  <div class="hero-inner"><div class="eyebrow">Notes along the way</div><h1>随行笔记</h1><p>把偶然闪过的灵感，留给未来的自己<br>走过的日常，读过的文字，都在这里慢慢沉淀</p></div>
-</header>
+<header class="hero"><nav class="nav" aria-label="主导航"><a class="brand" href="/" aria-label="白星空间首页"><span class="mark" aria-hidden="true"></span><span class="brand-name">白星</span><span class="brand-sub">PERSONAL SPACE</span></a><div class="nav-links"><a href="/">首页</a><a href="/album/">相册</a><a href="/notes/" aria-current="page">笔记</a></div></nav><div class="hero-inner"><div class="eyebrow">Notes along the way</div><h1>随行笔记</h1><p>把偶然闪过的灵感，留给未来的自己<br>也和朋友一起，收藏值得记住的日常</p></div></header>
 <main id="journal" class="section notebook">
-  <div class="intro"><h2>纸间拾光</h2><p>目前展示示例笔记，正式内容待更新</p></div>
-  <div class="filters" role="group" aria-label="按笔记分类筛选">
-    <button class="filter" type="button" aria-pressed="true" data-category="全部">全部</button>
-    <button class="filter" type="button" aria-pressed="false" data-category="生活片段">生活片段</button>
-    <button class="filter" type="button" aria-pressed="false" data-category="阅读随想">阅读随想</button>
-    <button class="filter" type="button" aria-pressed="false" data-category="灵感手记">灵感手记</button>
-  </div>
-  <p id="result-count" role="status" class="kicker"></p>
-  <div id="entries" class="journal-grid"></div>
-  <p id="empty" class="empty" hidden>这一页还留着空白，等下一段值得记录的时光</p>
-  <noscript><p class="empty">请启用 JavaScript 以查看笔记内容</p></noscript>
-  <p class="endnote">✦ 让零散的思绪，有一个安静的归处</p>
-</main>
+<section id="login" class="login-box"><h2>登录我们的笔记</h2><p>使用相册的邮箱和密码，共享空间成员可一起阅读与记录</p><form id="login-form"><label for="email">邮箱</label><input id="email" type="email" autocomplete="username" required><label for="password">密码</label><input id="password" type="password" autocomplete="current-password" required><button class="action primary" id="login-button">登录笔记</button></form><p id="login-message" role="status"></p></section>
+<section id="workspace" hidden><div class="intro"><div><h2>纸间拾光</h2><p id="space-label"></p></div><div class="toolbar"><button class="action primary" id="new-note">写一篇笔记</button><button class="action" id="refresh">刷新同步</button><button class="action" id="logout">退出账号</button></div></div>
+<label class="search-label" for="search">搜索笔记</label><input id="search" type="search" placeholder="搜索标题或正文" maxlength="200">
+<div class="filters" role="group" aria-label="按笔记分类筛选"><button class="filter" aria-pressed="true" data-category="全部">全部</button><button class="filter" aria-pressed="false" data-category="生活片段">生活片段</button><button class="filter" aria-pressed="false" data-category="阅读随想">阅读随想</button><button class="filter" aria-pressed="false" data-category="灵感手记">灵感手记</button></div>
+<p id="sync-status" role="status"></p><p id="result-count" class="kicker" role="status"></p><div id="entries" class="journal-grid"></div><p id="empty" class="empty" hidden></p></section>
+<noscript>请启用 JavaScript 以使用共享笔记</noscript><p class="endnote">✦ 让零散的思绪，有一个安静的归处</p></main>
 <footer class="footer"><span>© 2026 白星空间</span><a href="/">返回个人主页</a></footer>
-<dialog id="reader" aria-labelledby="reader-title">
-  <div class="reader-head"><span id="reader-category"></span><button class="close" type="button" aria-label="关闭笔记">×</button></div>
-  <article class="reader-copy"><p class="reader-label">示例笔记 · 仅作排版展示</p><h2 id="reader-title"></h2><div id="reader-body"></div></article>
-</dialog>
-</body>
-</html>
+<dialog id="reader" aria-labelledby="reader-title"><div class="reader-head"><span id="reader-category"></span><button class="close" id="reader-close" aria-label="关闭笔记">×</button></div><article class="reader-copy"><p id="reader-meta" class="reader-label"></p><h2 id="reader-title"></h2><div id="reader-body"></div><div class="toolbar"><button class="action" id="edit-note">编辑笔记</button><button class="action danger" id="delete-note">删除笔记</button></div><p id="reader-message" role="status"></p></article></dialog>
+<dialog id="editor" aria-labelledby="editor-heading"><div class="reader-head"><strong id="editor-heading">写一篇笔记</strong><button class="close" id="editor-close" aria-label="关闭编辑器">×</button></div><form id="editor-form" class="reader-copy"><label for="note-title">标题</label><input id="note-title" required maxlength="120" placeholder="给这一刻起个名字"><label for="note-category">分类</label><select id="note-category"><option>生活片段</option><option>阅读随想</option><option>灵感手记</option></select><label for="note-body">正文</label><textarea id="note-body" required maxlength="50000" rows="13" placeholder="写下想留住的片刻，支持换行"></textarea><p class="hint">点击保存后同步到云端，成员都能阅读与编辑</p><p id="editor-message" role="status"></p><div class="toolbar"><button id="save-note" class="action primary" type="submit">保存到云端</button><button id="copy-draft" class="action" type="button">下载草稿</button></div></form></dialog>
+</body></html>

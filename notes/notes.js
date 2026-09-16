@@ -1,50 +1,31 @@
-// Replace these examples with public notes when ready
-// Each entry has a unique id, category, title, excerpt, and an array of paragraphs
-const notes = [
-  { id: 'everyday', category: '生活片段', title: '把平常的一天，好好收藏', excerpt: '有些片刻不必盛大，一束落在桌边的光，也值得停下来看看', paragraphs: ['以下是排版示例，并非站长的真实经历', '有些片刻不必盛大\n一束落在桌边的光，一阵穿过树叶的风，都可以成为今天留下的一小段记忆', '记录的时候，不必急着写出完整的故事\n先留下一种颜色、一句话，或一个当下的心情，等以后翻到这一页，再慢慢想起它'] },
-  { id: 'reading', category: '阅读随想', title: '在文字之间，留一点空白', excerpt: '读到喜欢的句子，可以停一停，让自己的想法慢慢跟上来', paragraphs: ['以下是排版示例，并非站长的真实读书笔记', '有时，读完一页之后最想留下的，并不是结论，而是一个新的问题', '可以在这里写下书名、触动自己的片段，以及还没想明白的事情\n让阅读有回声，也给思考留一点余地'] },
-  { id: 'idea', category: '灵感手记', title: '先记下，再慢慢实现', excerpt: '一个还不完整的想法，也可以先拥有属于自己的位置', paragraphs: ['以下是排版示例，并非站长的真实项目记录', '灵感来的时候，先用几句话把它留下\n它想解决什么，最吸引自己的地方是什么，下一步可以从哪里开始', '不需要一次想清楚所有细节\n下一次回来时，补上一点新的发现，也是在向前走'] }
-];
-const entries = document.querySelector('#entries');
-const reader = document.querySelector('#reader');
-let opener;
-function openNote(note, button) {
-  opener = button;
-  document.querySelector('#reader-title').textContent = note.title;
-  document.querySelector('#reader-category').textContent = note.category;
-  const body = document.querySelector('#reader-body');
-  body.replaceChildren(...note.paragraphs.map(text => {
-    const p = document.createElement('p'); p.textContent = text; return p;
-  }));
-  reader.showModal();
-  reader.scrollTop = 0;
-}
-function render(category = '全部') {
-  const selected = notes.filter(note => category === '全部' || note.category === category);
-  entries.replaceChildren(...selected.map(note => {
-    const article = document.createElement('article'); article.className = 'entry';
-    const meta = document.createElement('div'); meta.className = 'entry-meta';
-    const tag = document.createElement('span'); tag.className = 'category'; tag.textContent = note.category;
-    const sample = document.createElement('span'); sample.className = 'sample'; sample.textContent = '示例';
-    meta.append(tag, sample);
-    const title = document.createElement('h3'); title.textContent = note.title;
-    const excerpt = document.createElement('p'); excerpt.textContent = note.excerpt;
-    const button = document.createElement('button'); button.className = 'read'; button.type = 'button';
-    button.textContent = '展开阅读 ↗'; button.setAttribute('aria-label', `阅读：${note.title}`);
-    button.addEventListener('click', () => openNote(note, button));
-    article.append(meta, title, excerpt, button); return article;
-  }));
-  document.querySelector('#empty').hidden = selected.length > 0;
-  document.querySelector('#result-count').textContent = `${selected.length} 篇示例笔记`;
-}
-document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
-  document.querySelectorAll('.filter').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-  render(button.dataset.category);
-}));
-document.querySelector('.close').addEventListener('click', () => reader.close());
-reader.addEventListener('click', event => {
-  const bounds = reader.getBoundingClientRect();
-  if (event.target === reader && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) reader.close();
-});
-reader.addEventListener('close', () => opener?.focus());
-render();
+(()=>{
+ const $=s=>document.querySelector(s);let client,store,notes=[],filter='全部',reading=null,editing=null,baseline='',busy=false,loading=false,epoch=0,opener=null;
+ const fields=()=>({title:$('#note-title').value,category:$('#note-category').value,body:$('#note-body').value});
+ const dirty=()=>$('#editor').open&&JSON.stringify(fields())!==baseline;
+ const errorText=error=>['42P01','PGRST205'].includes(error.code)?'共享笔记尚未开通，请在 Supabase 运行 08-开通共享笔记.sql':error.message||'连接失败，请检查网络后重试';
+ const sync=text=>$('#sync-status').textContent=text;
+ function clear(){epoch++;store=null;notes=[];reading=null;editing=null;$('#entries').replaceChildren();$('#workspace').hidden=true;$('#login').hidden=false;$('#password').value='';$('#reader').close();$('#editor').close();$('#note-body').value='';$('#note-title').value='';$('#reader-body').textContent='';$('#reader-title').textContent=''}
+ function render(){const query=$('#search').value.trim().toLocaleLowerCase();const visible=notes.filter(n=>(filter==='全部'||n.category===filter)&&(!query||(n.title+'\n'+n.body).toLocaleLowerCase().includes(query)));
+  $('#entries').replaceChildren(...visible.map(note=>{
+   const card=document.createElement('article');card.className='entry';const meta=document.createElement('div');meta.className='entry-meta';meta.textContent=note.category+' · '+new Date(note.updated_at).toLocaleString();
+   const title=document.createElement('h3');title.textContent=note.title;const excerpt=document.createElement('p');excerpt.textContent=note.body.slice(0,150)+(note.body.length>150?'…':'');
+   const button=document.createElement('button');button.type='button';button.className='read';button.textContent='展开阅读 ↗';button.setAttribute('aria-label','阅读：'+note.title);button.onclick=()=>{reading=note;opener=button;$('#reader-title').textContent=note.title;$('#reader-category').textContent=note.category;$('#reader-meta').textContent='更新于 '+new Date(note.updated_at).toLocaleString();$('#reader-body').textContent=note.body;$('#reader-message').textContent='';$('#edit-note').hidden=$('#delete-note').hidden=!store.canEdit;$('#reader').showModal();$('#reader').scrollTop=0};card.append(meta,title,excerpt,button);return card;
+  }));$('#result-count').textContent=`${visible.length} 篇笔记`;$('#empty').hidden=visible.length>0;$('#empty').textContent=notes.length?'没有找到匹配的笔记，试试其他关键词或分类':'这里还留着空白，写下你们的第一篇回忆吧';
+ }
+ async function refresh(){if(!store||loading||busy)return;loading=true;const current=store,token=epoch;try{const result=await current.list();if(token!==epoch)return;notes=result;render();sync('已同步 · '+new Date().toLocaleTimeString()+' · 每 20 秒自动检查更新')}catch(error){if(token===epoch)sync(errorText(error))}finally{loading=false}}
+ async function enter(user){const token=++epoch;const next=new NotesStore(client,user);await next.authorize();if(token!==epoch)return;store=next;$('#login').hidden=true;$('#workspace').hidden=false;$('#password').value='';$('#space-label').textContent=next.space.name+' · '+(next.canEdit?'成员共同记录':'仅阅读');$('#new-note').hidden=!next.canEdit;await refresh()}
+ function openEditor(note){$('#reader').close();editing=note?{id:note.id,version:note.version}:{id:crypto.randomUUID()};$('#editor-heading').textContent=note?'编辑笔记':'写一篇笔记';$('#note-title').value=note?.title||'';$('#note-category').value=note?.category||'生活片段';$('#note-body').value=note?.body||'';$('#editor-message').textContent='';baseline=JSON.stringify(fields());$('#editor').showModal();$('#editor').scrollTop=0;$('#note-title').focus()}
+ function closeEditor(){if(busy)return;if(dirty()&&!confirm('这些修改还没有保存，确定放弃吗？'))return;$('#editor').close();editing=null;$('#note-body').value='';$('#note-title').value=''}
+ $('#login-form').onsubmit=async event=>{event.preventDefault();if(!client)return;$('#login-button').disabled=true;$('#login-message').textContent='正在登录';try{const {data,error}=await client.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});if(error)throw Error('登录失败，请检查邮箱、密码和网络连接');await enter(data.user);$('#login-message').textContent=''}catch(error){clear();$('#login-message').textContent=errorText(error)}finally{$('#login-button').disabled=false}};
+ $('#new-note').onclick=()=>openEditor();$('#edit-note').onclick=()=>openEditor(reading);
+ $('#reader-close').onclick=()=>$('#reader').close();$('#reader').addEventListener('close',()=>{if(opener?.isConnected)opener.focus()});
+ $('#editor-close').onclick=closeEditor;$('#editor').addEventListener('cancel',event=>{event.preventDefault();closeEditor()});
+ $('#editor-form').onsubmit=async event=>{event.preventDefault();if(busy||!store)return;busy=true;const token=epoch;$('#save-note').disabled=true;$('#editor-message').textContent='正在保存，请保持页面打开';try{await store.save(fields(),editing);if(token!==epoch)return;baseline=JSON.stringify(fields());$('#editor').close();editing=null;$('#note-body').value='';$('#note-title').value='';sync('已保存到云端')}catch(error){if(token===epoch)$('#editor-message').textContent=errorText(error)+'，未保存的文字仍在编辑框中'}finally{busy=false;$('#save-note').disabled=false;await refresh()}};
+ $('#delete-note').onclick=async()=>{if(busy||!reading||!store)return;if(!confirm('删除这篇共享笔记？其他成员也将无法查看'))return;busy=true;$('#delete-note').disabled=true;try{await store.remove(reading);$('#reader').close();reading=null}catch(error){$('#reader-message').textContent=errorText(error)}finally{busy=false;$('#delete-note').disabled=false;await refresh()}};
+ $('#copy-draft').onclick=()=>{const value=fields();const url=URL.createObjectURL(new Blob([value.title+'\n\n'+value.body],{type:'text/plain;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download='随行笔记草稿.txt';link.click();setTimeout(()=>URL.revokeObjectURL(url),10000)};
+ $('#logout').onclick=async()=>{if(busy)return;if(dirty()&&!confirm('有未保存的文字，确定退出吗？'))return;clear();const {error}=await client.auth.signOut({scope:'local'});if(error)$('#login-message').textContent='页面已锁定，请关闭此标签页以清除登录会话'};
+ $('#search').oninput=render;document.querySelectorAll('.filter').forEach(button=>button.onclick=()=>{filter=button.dataset.category;document.querySelectorAll('.filter').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));render()});
+ $('#refresh').onclick=refresh;setInterval(()=>{if(!document.hidden)refresh()},20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});window.addEventListener('online',refresh);window.addEventListener('offline',()=>sync('当前离线，恢复网络后才能保存和同步'));window.addEventListener('beforeunload',event=>{if(dirty()||busy){event.preventDefault();event.returnValue=''}});
+ async function init(){const config=window.BAIXING_CLOUD;if(!config?.url||!config?.publishableKey||!window.supabase)throw Error('连接文件未加载，请确认原相册的云同步文件仍在 album 文件夹中');client=supabase.createClient(config.url,config.publishableKey,{auth:{storage:sessionStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});client.auth.onAuthStateChange(event=>{if(event==='SIGNED_OUT'){if(dirty()){$('#editor-message').textContent='登录已过期，请先下载草稿，再关闭编辑器重新登录';store=null;notes=[];$('#entries').replaceChildren();$('#workspace').hidden=true;$('#login').hidden=false;epoch++}else clear()}});const {data,error}=await client.auth.getSession();if(error)throw error;if(data.session)await enter(data.session.user)}
+ init().catch(error=>{$('#login-message').textContent=errorText(error)});
+})();
